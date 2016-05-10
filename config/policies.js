@@ -39,10 +39,16 @@ module.exports.policies = {
   ClientController: {
     clientPage: ['authenticated']
   },
+  ProjectController: {
+    '*': ['authenticated']
+  },
   'rest/RestUserController': {
     '*': ['authenticated']
   },
   'rest/RestClientController': {
+    '*': ['authenticated']
+  },
+  'rest/RestProjectController': {
     '*': ['authenticated']
   }
 

@@ -43,16 +43,15 @@ app.controller('ClientController',['$log','$scope','$location','data', 'ClientFa
 
   io.socket.on('client-created',function(obj){
     if(obj){
-      $scope.clients.push(obj);
-      $scope.$digest();
+      console.log(obj);
+      $scope.clients.push(obj.client);
+      $scope.$apply();
     }
   });
 
   angular.extend($scope, {
     saveClient: function (newClientForm) {
-      console.log($scope.newClient);
       ClientFactory.saveNewClient($scope.newClient).success(function (response) {
-        console.log(response);
         $scope.newClient = {};
         $location.path("/clients");
       }).error(function (message, code, data) {
@@ -70,7 +69,6 @@ app.factory('ClientFactory', ['$rootScope', '$http', function ($rootScope, $http
   };
 
   clientFact.saveNewClient = function (clientObj) {
-    console.log(clientObj);
     $http.defaults.headers.post['X-CSRF-Token'] = document.getElementsByName('_csrf')[0].value;
     return $http({
       headers: {

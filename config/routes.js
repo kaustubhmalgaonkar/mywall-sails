@@ -49,6 +49,7 @@ module.exports.routes = {
   '/do-login': 'AuthController.doLogin',
   '/users': 'UserController.userPage',
   '/clients': 'ClientController.clientPage',
+  '/projects': 'ProjectController.getProjectPage',
 
   /***************************************************************************
    *                                                                          *
@@ -62,6 +63,8 @@ module.exports.routes = {
   'get /api/get-all-users': 'rest/RestUserController.restGetUsers',
   'post /api/save-new-user': 'rest/RestUserController.saveNewUser',
   'get /api/get-all-clients': 'rest/RestClientController.getAllClients',
-  'post /api/save-new-client': 'rest/RestClientController.saveNewClient'
+  'post /api/save-new-client': 'rest/RestClientController.saveNewClient',
+  'get /api/get-all-projects': 'rest/RestProjectController.restGetProjects',
+  'post /api/save-new-project': 'rest/RestProjectController.saveProject'
 
 };
