@@ -52,6 +52,7 @@ module.exports.routes = {
   '/projects': 'ProjectController.getProjectPage',
   '/tags': 'TagController.tagPage',
   '/time-entries': 'TimeEntriesController.timeEntriesPage',
+  '/test': 'UserController.testPage',
 
   /***************************************************************************
    *                                                                          *

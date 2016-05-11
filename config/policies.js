@@ -33,8 +33,10 @@ module.exports.policies = {
     logout: ['authenticated']
   },
   UserController: {
-    dashBoard: ['authenticated'],
-    userPage: ['authenticated']
+    '*': ['authenticated']
+  },
+  ClientController: {
+    clientPage: ['authenticated']
   },
   ClientController: {
     '*': ['authenticated']
