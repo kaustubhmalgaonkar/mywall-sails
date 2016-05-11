@@ -20,9 +20,10 @@ function ($routeProvider, $locationProvider) {
     templateUrl: 'htmls/time_entries/time-entry-add.html',
     controller: 'TimeEntriesController',
     resolve: {
-      data: function (TagFactory) {
+      data: function (TagFactory, ProjectFactory) {
         return {
-          tagList: TagFactory.getAllTags()
+          tagsList: TagFactory.getAllTags(),
+          projectsList : ProjectFactory.getProjects()
         }
       }
     }

@@ -1,18 +1,23 @@
 /**
  * Created by kaustubh on 11/5/16.
  */
-app.controller('TimeEntriesController',['$log','$scope','$location','data', 'TimeEntriesFactory',function($log,$scope,$location,data,TimeEntriesFactory){
-  if (data) {
-    if(data.timeEntriesList != undefined){
-      data.timeEntriesList.success(function (data) {
-        $scope.timeEntries = data;
-      });
-    }
-    if(data.tagsList != undefined){
-      data.tagsList.success(function (data) {
-        $scope.tags = data;
-      });
-    }
+app.controller('TimeEntriesController',['$log','$scope','$location','data', 'TimeEntriesFactory', 'ClientFactory',function($log,$scope,$location,data,TimeEntriesFactory,ClientFactory){
+  if (data && data.timeEntriesList != undefined){
+    data.timeEntriesList.success(function (data) {
+      $scope.timeEntries = data;
+    });
+  }
+
+  if (data && data.tagsList != undefined){
+    data.tagsList.success(function (data) {
+      $scope.tags = data;
+    });
+  }
+
+  if (data && data.projectsList != undefined){
+    data.projectsList.success(function (data) {
+      $scope.projects = data;
+    });
   }
 
   io.socket.on('time-entry-created',function(obj){
@@ -41,9 +46,15 @@ app.controller('TimeEntriesController',['$log','$scope','$location','data', 'Tim
 
   angular.extend($scope, {
     saveTimeEntry: function (newTimeEntryForm) {
-      TimeEntriesFactory.saveNewTimeEntry($scope.newTimeEntry).success(function (response) {
+      /*TimeEntriesFactory.saveNewTimeEntry($scope.newTimeEntry).success(function (response) {
         $scope.newTimeEntry= {};
         $location.path("/time-entries");
+      }).error(function (message, code, data) {
+        alert(message);
+      });*/
+      console.log($scope.newTimeEntry.project.name);
+      ClientFactory.getClient($scope.newTimeEntry.project).success(function (response) {
+        console.log(response);
       }).error(function (message, code, data) {
         alert(message);
       });
