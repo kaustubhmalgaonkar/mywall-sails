@@ -27,13 +27,11 @@ app.controller('TimeEntriesController',['$log','$scope','$location','data', 'Tim
   });
 
   $scope.$on('timeEntryCreated',function(event,obj){
-    console.log(obj)
     $scope.timeEntries.push(obj.time_entry);
     $scope.$apply();
   });
 
   $scope.$on('tagCreated',function(event,obj){
-    console.log(obj)
     $scope.tags.push(obj.tag);
     $scope.$apply();
   });
@@ -46,17 +44,16 @@ app.controller('TimeEntriesController',['$log','$scope','$location','data', 'Tim
 
   angular.extend($scope, {
     saveTimeEntry: function (newTimeEntryForm) {
-      /*TimeEntriesFactory.saveNewTimeEntry($scope.newTimeEntry).success(function (response) {
-        $scope.newTimeEntry= {};
-        $location.path("/time-entries");
-      }).error(function (message, code, data) {
-        alert(message);
-      });*/
-      console.log($scope.newTimeEntry.project.name);
       ClientFactory.getClient($scope.newTimeEntry.project).success(function (response) {
-        console.log(response);
+          $scope.newTimeEntry.client_name = response[0].client_name;
+          TimeEntriesFactory.saveNewTimeEntry($scope.newTimeEntry).success(function (response) {
+              $scope.newTimeEntry= {};
+              $location.path("/time-entries");
+          }).error(function (message, code, data) {
+              console.log(message);
+          });
       }).error(function (message, code, data) {
-        alert(message);
+          console.log(message);
       });
     }
   });

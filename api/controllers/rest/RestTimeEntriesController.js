@@ -17,8 +17,15 @@ module.exports = {
     });
   },
   saveNewTimeEntry:function(req,res){
-    var data_from_time_entries = req.params.all();
-    TimeEntries.create(data_from_time_entries).exec(function (err, time_entry) {
+      console.log(req.body.project);
+    TimeEntries.create({
+        desc: req.body.desc,
+        user_id: req.user.id,
+        project_id: req.body.project.id,
+        project_name: req.body.project.name,
+        client_name: req.body.client_name,
+        time: req.body.time
+    }).exec(function (err, time_entry) {
       if(!err){
         sails.sockets.blast('time-entry-created', {
           time_entry: time_entry

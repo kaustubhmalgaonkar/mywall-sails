@@ -31,7 +31,7 @@ app.controller('TagController',['$log','$scope','$location','data', 'TagFactory'
         $scope.newTag= {};
         $location.path("/tags");
       }).error(function (message, code, data) {
-        alert(message);
+          console.log(message);
       });
     }
   });
