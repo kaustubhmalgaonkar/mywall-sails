@@ -10,8 +10,7 @@ function ($routeProvider, $locationProvider) {
     resolve: {
       data: function (TimeEntriesFactory) {
         return {
-          timeEntriesList: TimeEntriesFactory.getAllTimeEntries(),
-          tagsList: TimeEntriesFactory.getAllTags()
+          timeEntriesList: TimeEntriesFactory.getAllTimeEntries()
         }
       }
     }
@@ -21,8 +20,10 @@ function ($routeProvider, $locationProvider) {
     templateUrl: 'htmls/time_entries/time-entry-add.html',
     controller: 'TimeEntriesController',
     resolve: {
-      data: function (TimeEntriesFactory) {
-        TimeEntriesFactory.getAllTimeEntries();
+      data: function (TagFactory) {
+        return {
+          tagList: TagFactory.getAllTags()
+        }
       }
     }
   });
