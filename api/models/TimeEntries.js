@@ -11,7 +11,8 @@ module.exports = {
     id: {
       type: 'integer',
       primaryKey: true,
-      unique: true
+      unique: true,
+      autoIncrement: true
     },
     desc: {
       type: 'string',

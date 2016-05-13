@@ -17,7 +17,6 @@ module.exports = {
     });
   },
   saveNewTimeEntry:function(req,res){
-      console.log(req.body.project);
     TimeEntries.create({
         desc: req.body.desc,
         user_id: req.user.id,
@@ -27,6 +26,17 @@ module.exports = {
         time: req.body.time
     }).exec(function (err, time_entry) {
       if(!err){
+        for(var i=0; i < req.body.tags.length; i++){
+          Taggable.create({
+            tag_id : req.body.tags[i],
+            taggable_id : time_entry.id,
+            taggable_type : 'time_entry'
+          }).exec(function(err,taggable){
+            if(err){
+              console.log(err);
+            }
+          });
+        }
         sails.sockets.blast('time-entry-created', {
           time_entry: time_entry
         });
